@@ -1,0 +1,39 @@
+# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+env/
+.venv/
+.env/
+
+# Editor folders
+.vscode/
+.idea/
+
+# Data and logs
+*.log
+*.sqlite3
+*.db
+
+# MacOS
+.DS_Store
+
+# Package directories
+pip-wheel-metadata/
+__pypackages__/
+
+# Coverage
+htmlcov/
+.coverage
+.coverage.*
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Distribution
+build/
+dist/
+*.egg-info/

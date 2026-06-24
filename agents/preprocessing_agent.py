@@ -1,0 +1,9 @@
+START
+  ↓
+analyze_profile
+  ↓
+validate_output
+  ↓
+finalize
+  ↓
+END

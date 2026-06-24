@@ -1,0 +1,1 @@
+"""Generate PDF/JSON reports."""
