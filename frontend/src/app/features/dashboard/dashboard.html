@@ -1,0 +1,65 @@
+<div class="dash">
+  <div class="dash__head">
+    <div>
+      <h1 class="dash__title">Security overview</h1>
+      @if (store.summary(); as summary) {
+        <p class="dash__meta">
+          Live threat posture · updated {{ summary.generatedAt | date: 'MMM d, HH:mm:ss' }}
+        </p>
+      } @else {
+        <p class="dash__meta">Connecting to SOC data service…</p>
+      }
+    </div>
+    <button type="button" class="btn" (click)="store.refetch()" [disabled]="store.loading()">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" [class.spin]="store.loading()">
+        <path d="M21 12a9 9 0 1 1-2.64-6.36" />
+        <path d="M21 3v6h-6" />
+      </svg>
+      Refresh
+    </button>
+  </div>
+
+  <soc-filter-bar />
+
+  @if (store.error(); as error) {
+    <div class="dash__error" role="alert">
+      {{ error }}
+      <button type="button" class="btn" (click)="store.refetch()">Retry</button>
+    </div>
+  }
+
+  @if (store.summary(); as summary) {
+    <div class="dash__content" [class.is-refreshing]="store.refreshing()">
+      <!-- KPI row -->
+      <section class="dash__kpis" aria-label="Key metrics">
+        @for (kpi of summary.kpis; track kpi.id) {
+          <soc-kpi-card [kpi]="kpi" />
+        }
+      </section>
+
+      <!-- Primary charts -->
+      <section class="dash__row dash__row--primary" aria-label="Trends">
+        <soc-trend-chart [trend]="summary.trend" />
+        <soc-severity-chart [severities]="summary.severities" />
+      </section>
+
+      <!-- Secondary charts -->
+      <section class="dash__row dash__row--secondary" aria-label="Breakdowns">
+        <soc-category-chart [categories]="summary.categories" />
+        <soc-sources-chart [sources]="summary.topSources" />
+        <soc-system-status [systems]="summary.systems" />
+      </section>
+
+      <!-- Table view -->
+      <section aria-label="Latest alerts">
+        <soc-alerts-table [alerts]="store.alerts()" />
+      </section>
+    </div>
+  } @else if (store.loading()) {
+    <div class="dash__skeleton" aria-hidden="true">
+      @for (block of [0, 1, 2, 3]; track block) {
+        <div class="dash__skeleton-card"></div>
+      }
+    </div>
+  }
+</div>

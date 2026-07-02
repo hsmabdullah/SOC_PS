@@ -1,0 +1,43 @@
+:host {
+  display: inline-flex;
+}
+
+.logo-img {
+  max-height: 148px;
+  width: auto;
+  display: block;
+}
+
+.lockup {
+  display: inline-flex;
+  align-items: center;
+}
+
+.lockup--vertical {
+  flex-direction: column;
+  gap: 14px;
+  text-align: center;
+}
+
+.mark {
+  display: block;
+  flex: none;
+}
+
+.wordmark {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brand-blue);
+  line-height: 1;
+}
+
+.tagline {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  line-height: 1;
+}

@@ -1,0 +1,48 @@
+<div class="card card--hover kpi">
+  <div class="kpi__top">
+    <span class="kpi__label">{{ kpi().label }}</span>
+    @if (kpi().deltaPct !== null) {
+      <span class="kpi__delta" [class]="deltaClass()">
+        <svg width="9" height="9" viewBox="0 0 10 10" aria-hidden="true">
+          @if (kpi().deltaPct! > 0) {
+            <path d="M5 1 L9 7 H1 Z" fill="currentColor" />
+          } @else if (kpi().deltaPct! < 0) {
+            <path d="M5 9 L1 3 H9 Z" fill="currentColor" />
+          } @else {
+            <rect x="1" y="4" width="8" height="2" rx="1" fill="currentColor" />
+          }
+        </svg>
+        {{ kpi().deltaPct! > 0 ? '+' : '' }}{{ kpi().deltaPct }}%
+      </span>
+    }
+  </div>
+
+  <div class="kpi__value-row">
+    <span class="kpi__value">{{ displayValue() }}</span>
+    @if (kpi().unit) {
+      <span class="kpi__unit">{{ kpi().unit }}</span>
+    }
+  </div>
+
+  <div class="kpi__spark" aria-hidden="true">
+    <svg viewBox="0 0 100 30" preserveAspectRatio="none">
+      <path [attr.d]="sparkArea()" fill="rgba(41, 82, 204, 0.07)" />
+      <path
+        [attr.d]="sparkPath()"
+        fill="none"
+        stroke="#b9c6e8"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        vector-effect="non-scaling-stroke"
+      />
+    </svg>
+    <span
+      class="kpi__spark-dot"
+      [style.left.%]="sparkDot().x"
+      [style.top.px]="sparkDot().y * (34 / 30)"
+    ></span>
+  </div>
+
+  <span class="kpi__hint">vs previous period</span>
+</div>

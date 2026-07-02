@@ -1,0 +1,116 @@
+<div class="fbar" role="toolbar" aria-label="Dashboard filters">
+  <!-- Date range (first — the filter every reader reaches for) -->
+  <div class="fbar__group">
+    <button
+      type="button"
+      class="btn"
+      [class.btn--active]="store.filters().range !== '7d'"
+      (click)="toggleMenu('range')"
+      [attr.aria-expanded]="openMenu() === 'range'"
+    >
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+        <rect x="3" y="4" width="18" height="18" rx="2" />
+        <path d="M16 2v4M8 2v4M3 10h18" />
+      </svg>
+      {{ rangeLabel() }}
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true">
+        <path d="m6 9 6 6 6-6" />
+      </svg>
+    </button>
+
+    @if (openMenu() === 'range') {
+      <div class="fbar__menu" role="listbox" aria-label="Date range">
+        @for (range of ranges; track range.id) {
+          <button
+            type="button"
+            class="fbar__row"
+            role="option"
+            [attr.aria-selected]="store.filters().range === range.id"
+            (click)="selectRange(range.id)"
+          >
+            <span>{{ range.label }}</span>
+            @if (store.filters().range === range.id) {
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20 6 9 17l-5-5" />
+              </svg>
+            }
+          </button>
+        }
+        <div class="fbar__menu-foot">Custom range — coming soon</div>
+      </div>
+    }
+  </div>
+
+  <span class="fbar__divider" aria-hidden="true"></span>
+
+  <!-- Severity toggles -->
+  <div class="fbar__group fbar__chips" aria-label="Severity">
+    @for (severity of severities; track severity) {
+      <button
+        type="button"
+        class="btn fbar__chip"
+        [class.btn--active]="store.filters().severities.includes(severity)"
+        (click)="store.toggleSeverity(severity)"
+        [attr.aria-pressed]="store.filters().severities.includes(severity)"
+      >
+        <span class="sev sev--{{ severity }}"><span class="sev__dot"></span></span>
+        {{ severity }}
+      </button>
+    }
+  </div>
+
+  <span class="fbar__divider" aria-hidden="true"></span>
+
+  <!-- Category multi-select -->
+  <div class="fbar__group">
+    <button
+      type="button"
+      class="btn"
+      [class.btn--active]="store.filters().categories.length > 0"
+      (click)="toggleMenu('category')"
+      [attr.aria-expanded]="openMenu() === 'category'"
+    >
+      Category
+      @if (store.filters().categories.length) {
+        <span class="fbar__count">{{ store.filters().categories.length }}</span>
+      }
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true">
+        <path d="m6 9 6 6 6-6" />
+      </svg>
+    </button>
+
+    @if (openMenu() === 'category') {
+      <div class="fbar__menu" role="listbox" aria-label="Categories" aria-multiselectable="true">
+        @for (category of categories; track category) {
+          <button
+            type="button"
+            class="fbar__row"
+            role="option"
+            [attr.aria-selected]="store.filters().categories.includes(category)"
+            (click)="store.toggleCategory(category)"
+          >
+            <span>{{ category }}</span>
+            @if (store.filters().categories.includes(category)) {
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20 6 9 17l-5-5" />
+              </svg>
+            }
+          </button>
+        }
+      </div>
+    }
+  </div>
+
+  <div class="fbar__spacer"></div>
+
+  <!-- Active-filter state -->
+  @if (store.activeFilterCount() > 0) {
+    <span class="fbar__active" role="status">
+      <span class="fbar__active-dot" aria-hidden="true"></span>
+      {{ store.activeFilterCount() }} filter{{ store.activeFilterCount() === 1 ? '' : 's' }} active
+    </span>
+    <button type="button" class="btn btn--ghost fbar__clear" (click)="store.clearFilters()">
+      Clear all
+    </button>
+  }
+</div>
