@@ -1,0 +1,69 @@
+.sys {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.sys__row {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.sys__main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.sys__name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.sys__state {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+.sys__state--operational { color: var(--status-good); }
+.sys__state--degraded { color: #a35a05; }
+.sys__state--down { color: var(--status-down); }
+
+.sys__meter {
+  height: 6px;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.sys__meter-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 600ms var(--ease-out);
+}
+
+/* Track = lighter step of the fill's own ramp */
+.sys__meter--operational { background: rgba(15, 138, 60, 0.14); }
+.sys__meter--operational .sys__meter-fill { background: var(--status-good); }
+
+.sys__meter--degraded { background: rgba(217, 119, 6, 0.16); }
+.sys__meter--degraded .sys__meter-fill { background: var(--status-warn); }
+
+.sys__meter--down { background: rgba(226, 10, 23, 0.12); }
+.sys__meter--down .sys__meter-fill { background: var(--status-down); }
+
+.sys__foot {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-3);
+}

@@ -1,0 +1,119 @@
+.dash {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 26px 28px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.dash__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.dash__title {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.dash__meta {
+  margin-top: 3px;
+  font-size: 12.5px;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+
+.spin {
+  animation: spin 900ms linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.dash__error {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 14px 18px;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(226, 10, 23, 0.25);
+  background: var(--brand-red-tint);
+  color: var(--brand-red-dark);
+  font-weight: 500;
+}
+
+.dash__content {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.dash__kpis {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.dash__row {
+  display: grid;
+  gap: 18px;
+}
+
+.dash__row--primary {
+  grid-template-columns: 2fr 1fr;
+}
+
+.dash__row--secondary {
+  grid-template-columns: 1.2fr 1fr 1fr;
+}
+
+/* First-load skeleton (subsequent refetches dim in place instead) */
+.dash__skeleton {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.dash__skeleton-card {
+  height: 140px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(100deg, var(--surface) 40%, var(--surface-2) 50%, var(--surface) 60%);
+  background-size: 200% 100%;
+  border: 1px solid var(--hairline);
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  to {
+    background-position-x: -200%;
+  }
+}
+
+@media (max-width: 1180px) {
+  .dash__kpis {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .dash__row--primary,
+  .dash__row--secondary {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .dash {
+    padding: 18px 16px 40px;
+  }
+
+  .dash__kpis {
+    grid-template-columns: 1fr;
+  }
+}

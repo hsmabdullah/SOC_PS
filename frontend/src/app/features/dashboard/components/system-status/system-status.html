@@ -1,0 +1,43 @@
+<div class="card card--hover">
+  <div class="card__head">
+    <div>
+      <h3 class="card__title">System status</h3>
+      <p class="card__subtitle">Security stack health</p>
+    </div>
+  </div>
+  <div class="card__body">
+    <ul class="sys">
+      @for (system of systems(); track system.name) {
+        <li class="sys__row">
+          <div class="sys__main">
+            <span class="sys__name">{{ system.name }}</span>
+            <span class="sys__state sys__state--{{ system.state }}">
+              @if (system.state === 'operational') {
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5" />
+                </svg>
+              } @else if (system.state === 'degraded') {
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M12 2 1 21h22L12 2zm1 14h-2v2h2v-2zm0-6h-2v4h2v-4z" />
+                </svg>
+              } @else {
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true">
+                  <path d="M18 6 6 18M6 6l12 12" />
+                </svg>
+              }
+              {{ stateLabel(system.state) }}
+            </span>
+          </div>
+          <div class="sys__meter sys__meter--{{ system.state }}" role="img"
+               [attr.aria-label]="system.name + ' uptime ' + (system.uptimePct | number: '1.1-1') + '%'">
+            <div class="sys__meter-fill" [style.width.%]="system.uptimePct"></div>
+          </div>
+          <div class="sys__foot">
+            <span>{{ system.uptimePct | number: '1.1-2' }}% uptime</span>
+            <span>{{ system.latencyMs }} ms</span>
+          </div>
+        </li>
+      }
+    </ul>
+  </div>
+</div>

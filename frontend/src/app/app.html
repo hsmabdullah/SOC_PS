@@ -1,0 +1,9 @@
+<soc-header />
+
+<main class="app-main">
+  <router-outlet />
+</main>
+
+@if (splashVisible()) {
+  <soc-splash (done)="splashVisible.set(false)" />
+}

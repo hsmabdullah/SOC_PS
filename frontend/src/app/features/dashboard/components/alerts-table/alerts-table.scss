@@ -1,0 +1,112 @@
+.tbl__scroll {
+  overflow-x: auto;
+}
+
+.tbl {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.tbl th {
+  padding: 8px 12px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  border-bottom: 1px solid var(--grid);
+  white-space: nowrap;
+}
+
+.tbl td {
+  padding: 11px 12px;
+  border-bottom: 1px solid var(--grid);
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.tbl tbody tr {
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.tbl tbody tr:hover {
+  background: var(--surface-2);
+}
+
+.tbl tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.tbl .sev {
+  text-transform: capitalize;
+}
+
+.tbl__title {
+  display: block;
+  font-weight: 500;
+  color: var(--ink);
+  max-width: 340px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tbl__id {
+  display: block;
+  font-size: 11px;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+
+.tbl__dim {
+  color: var(--ink-2);
+}
+
+.tbl__mono {
+  font-variant-numeric: tabular-nums;
+  font-size: 12.5px;
+}
+
+.tbl__right {
+  text-align: right;
+}
+
+.tbl__status {
+  display: inline-flex;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+.tbl__status--open {
+  color: #b30f19;
+  background: rgba(226, 10, 23, 0.08);
+}
+
+.tbl__status--investigating {
+  color: #a35a05;
+  background: rgba(217, 119, 6, 0.12);
+}
+
+.tbl__status--contained {
+  color: var(--brand-blue);
+  background: var(--brand-blue-tint);
+}
+
+.tbl__status--resolved {
+  color: #0b6b2f;
+  background: rgba(15, 138, 60, 0.1);
+}
+
+.tbl__empty {
+  text-align: center;
+  color: var(--ink-3);
+  padding: 28px 12px;
+}
+
+.tbl__more {
+  font-size: 12.5px;
+  color: var(--brand-blue);
+}

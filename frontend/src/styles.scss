@@ -1,0 +1,236 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   Pak Suzuki SOC — Global styles & design tokens
+   Brand: Primary Red #E20A17 · Primary Blue #003399
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── Brand ── */
+  --brand-red: #e20a17;
+  --brand-red-dark: #b90813;
+  --brand-red-tint: #fdecec;
+  --brand-blue: #003399;
+  --brand-blue-dark: #002a7d;
+  --brand-blue-tint: #eaeffa;
+
+  /* ── Neutrals / surfaces ── */
+  --page: #f6f7f9;
+  --surface: #ffffff;
+  --surface-2: #fafbfc;
+  --ink: #0f172a;
+  --ink-2: #475569;
+  --ink-3: #8a94a6;
+  --grid: #eceff3;
+  --hairline: rgba(15, 23, 42, 0.08);
+  --hairline-strong: rgba(15, 23, 42, 0.14);
+
+  /* ── Categorical chart slots (validated, fixed order — never cycled) ── */
+  --series-1: #2952cc; /* blue    */
+  --series-2: #d97706; /* amber   */
+  --series-3: #0e8a72; /* teal    */
+  --series-4: #6d28d9; /* violet  */
+  --series-5: #c2367e; /* magenta */
+  --series-6: #0891b2; /* cyan    */
+
+  /* ── Severity / status (reserved — never used as a series) ── */
+  --sev-critical: #e20a17;
+  --sev-high: #ea580c;
+  --sev-medium: #d97706;
+  --sev-low: #64748b;
+  --status-good: #0f8a3c;
+  --status-warn: #d97706;
+  --status-down: #e20a17;
+
+  /* ── Elevation ── */
+  --shadow-1: 0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.05);
+  --shadow-2: 0 4px 12px rgba(15, 23, 42, 0.07), 0 2px 4px rgba(15, 23, 42, 0.05);
+  --shadow-3: 0 12px 32px rgba(15, 23, 42, 0.12), 0 4px 8px rgba(15, 23, 42, 0.06);
+
+  /* ── Shape & motion ── */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --ease-out: cubic-bezier(0.2, 0.6, 0.2, 1);
+  --dur-fast: 160ms;
+  --dur-med: 260ms;
+
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* ── Reset / base ── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink);
+  background: var(--page);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  background: var(--brand-blue-tint);
+}
+
+:focus-visible {
+  outline: 2px solid var(--brand-blue);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ── Card (shared surface primitive) ── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-1);
+  transition:
+    box-shadow var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out);
+}
+
+.card--hover:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-2);
+  border-color: var(--hairline-strong);
+}
+
+.card__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 20px 0;
+}
+
+.card__title {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.card__subtitle {
+  margin-top: 2px;
+  font-size: 12px;
+  color: var(--ink-3);
+}
+
+.card__body {
+  padding: 14px 20px 18px;
+}
+
+/* ── Buttons & chips ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 34px;
+  padding: 0 13px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--hairline-strong);
+  background: var(--surface);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-2);
+  white-space: nowrap;
+  transition:
+    background var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out);
+}
+
+.btn:hover {
+  background: var(--surface-2);
+  border-color: rgba(15, 23, 42, 0.22);
+  color: var(--ink);
+}
+
+.btn--active {
+  background: var(--brand-blue-tint);
+  border-color: rgba(0, 51, 153, 0.35);
+  color: var(--brand-blue);
+}
+
+.btn--ghost {
+  border-color: transparent;
+  background: transparent;
+}
+
+.btn--ghost:hover {
+  border-color: transparent;
+  background: rgba(15, 23, 42, 0.05);
+}
+
+/* ── Severity dot + label (icon + label: color never carries meaning alone) ── */
+.sev {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.sev__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex: none;
+}
+
+.sev--critical .sev__dot { background: var(--sev-critical); }
+.sev--high .sev__dot { background: var(--sev-high); }
+.sev--medium .sev__dot { background: var(--sev-medium); }
+.sev--low .sev__dot { background: var(--sev-low); }
+
+/* ── Refetch keeps the frame: dim, no layout jump ── */
+.is-refreshing {
+  opacity: 0.45;
+  pointer-events: none;
+  transition: opacity var(--dur-med) var(--ease-out);
+}
+
+/* ── Motion safety ── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

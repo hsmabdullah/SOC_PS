@@ -1,0 +1,27 @@
+@if (variant() === 'vertical' && !pngFailed()) {
+  <img
+    class="logo-img"
+    [src]="pngSrc"
+    alt="Pak Suzuki"
+    (error)="pngFailed.set(true)"
+  />
+} @else {
+  <div class="lockup" [class.lockup--vertical]="variant() === 'vertical'">
+    <svg
+      class="mark"
+      [attr.width]="markSize()"
+      [attr.height]="markSize()"
+      viewBox="0 0 120 120"
+      fill="none"
+      aria-hidden="true"
+    >
+      <!-- Placeholder rendition of the Suzuki "S" mark (brand red) -->
+      <path d="M30 50 L78 18 L112 38 L64 70 Z" fill="#e20a17" />
+      <path d="M90 70 L42 102 L8 82 L56 50 Z" fill="#e20a17" />
+    </svg>
+    @if (variant() === 'vertical') {
+      <span class="wordmark">Pak Suzuki</span>
+      <span class="tagline">Security Operations Center</span>
+    }
+  </div>
+}
