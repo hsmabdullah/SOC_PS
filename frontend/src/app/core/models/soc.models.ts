@@ -54,7 +54,9 @@ export interface SeverityCount {
 }
 
 export interface CategoryCount {
-  category: AlertCategory;
+  // string (not AlertCategory): the live database may use category names
+  // beyond the fixed filter list
+  category: string;
   count: number;
 }
 
@@ -76,7 +78,7 @@ export interface SocAlert {
   timestamp: string; // ISO 8601
   title: string;
   severity: Severity;
-  category: AlertCategory;
+  category: string;
   source: string;
   status: AlertStatus;
   analyst: string | null;

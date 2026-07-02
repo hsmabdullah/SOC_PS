@@ -35,6 +35,15 @@ export const CATEGORY_COLORS: Record<string, string> = {
   DDoS: CHART_COLORS.slots[5],
 };
 
+/**
+ * Color for a category coming from the live database. Known categories
+ * keep their fixed slot; unknown ones are assigned the next free slot in
+ * order (stable within a render, since categories arrive sorted by count).
+ */
+export function categoryColor(category: string, index: number): string {
+  return CATEGORY_COLORS[category] ?? CHART_COLORS.slots[index % CHART_COLORS.slots.length];
+}
+
 export function withAlpha(hex: string, alpha: number): string {
   const r = parseInt(hex.slice(1, 3), 16);
   const g = parseInt(hex.slice(3, 5), 16);

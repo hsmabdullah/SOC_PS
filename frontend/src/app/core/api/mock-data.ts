@@ -187,7 +187,7 @@ function inWindow(a: SocAlert, from: number, to: number): boolean {
 
 function matches(a: SocAlert, f: DashboardFilters): boolean {
   if (f.severities.length && !f.severities.includes(a.severity)) return false;
-  if (f.categories.length && !f.categories.includes(a.category)) return false;
+  if (f.categories.length && !(f.categories as string[]).includes(a.category)) return false;
   return true;
 }
 

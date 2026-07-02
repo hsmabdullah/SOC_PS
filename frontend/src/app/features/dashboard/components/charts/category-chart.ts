@@ -3,10 +3,7 @@ import { ChartConfiguration } from 'chart.js';
 
 import { CategoryCount } from '../../../../core/models/soc.models';
 import { ChartComponent } from '../../../../shared/chart/chart';
-import {
-  CATEGORY_COLORS,
-  doughnutCenterPlugin,
-} from '../../../../shared/chart/chart-theme';
+import { categoryColor, doughnutCenterPlugin } from '../../../../shared/chart/chart-theme';
 
 /**
  * Threat-category mix. Each category keeps its fixed slot color (color
@@ -44,7 +41,7 @@ export class CategoryChartComponent {
         datasets: [
           {
             data: rows.map((r) => r.count),
-            backgroundColor: rows.map((r) => CATEGORY_COLORS[r.category]),
+            backgroundColor: rows.map((r, i) => categoryColor(r.category, i)),
             borderColor: '#ffffff',
             borderWidth: 2,
             hoverOffset: 6,

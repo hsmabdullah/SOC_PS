@@ -12,29 +12,34 @@ minimal, data-dense UI in the Pak Suzuki brand palette — Primary Red
   theme (`shared/chart/chart-theme.ts`)
 - **SCSS design tokens** — all colors/spacing/motion in `src/styles.scss`
 
-## Run
+## Run (full stack)
+
+Terminal 1 — FastAPI backend (from the **repository root**):
+
+```bash
+pip install -r requirements.txt
+uvicorn api.main:app --reload --port 8000
+```
+
+Terminal 2 — Angular frontend (from `frontend/`):
 
 ```bash
 npm install
-npm start          # http://localhost:4200
+npm start          # http://localhost:4200 (proxies /api → :8000)
 ```
 
-By default the app runs against a **mock API** (`environment.useMockApi =
-true`): an `HttpInterceptor` answers every `/api/v1/*` request with
-deterministic, filter-aware payloads shaped exactly like the FastAPI
-responses. All data on screen is aggregated from one seeded alert
-population, so every widget agrees.
+The FastAPI layer (`api/` at the repo root) reads the alerts table from
+**SQL Server** through the existing `database/connector.py`. Configure
+`DB_*` credentials and the `SOC_ALERTS_TABLE` / `SOC_COL_*` column
+mapping in the root `.env`. When `DB_SERVER` is empty the API serves a
+deterministic built-in demo dataset, so the stack runs end-to-end
+without a database.
 
-## Connecting the FastAPI backend
+### Frontend-only mode (no backend at all)
 
-1. Implement the endpoints in the FastAPI layer:
-   - `GET /api/v1/dashboard/summary?range=&severities=&categories=`
-     → `DashboardSummary` (see `src/app/core/models/soc.models.ts`)
-   - `GET /api/v1/alerts?range=&severities=&categories=&limit=`
-     → `AlertPage`
-2. Set `useMockApi: false` in `src/environments/environment.ts`.
-3. `npm start` proxies `/api` to `http://localhost:8000`
-   (see `proxy.conf.json`).
+Set `useMockApi: true` in `src/environments/environment.ts` — an
+`HttpInterceptor` then answers every `/api/v1/*` request in the browser
+with the same payload shapes, useful for pure UI work.
 
 ## Branding
 
