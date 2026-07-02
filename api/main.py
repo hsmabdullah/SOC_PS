@@ -18,6 +18,8 @@ empty, so the stack runs end-to-end without a database.
 
 from __future__ import annotations
 
+from typing import Optional
+
 from fastapi import FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -37,7 +39,10 @@ app.add_middleware(
 )
 
 
-def _split(value: str | None) -> list[str]:
+# NOTE: endpoint signatures use Optional[...] (not `str | None`) on purpose —
+# FastAPI evaluates these annotations at runtime, and PEP 604 unions need
+# Python 3.10+, while this project must run on Python 3.9 (Anaconda).
+def _split(value: Optional[str]) -> list[str]:
     return [v for v in (value or "").split(",") if v]
 
 
@@ -50,8 +55,8 @@ def health() -> dict:
 @app.get("/api/v1/dashboard/summary", response_model=DashboardSummary)
 def dashboard_summary(
     range: str = Query("7d", pattern="^(24h|7d|30d|90d)$"),
-    severities: str | None = None,
-    categories: str | None = None,
+    severities: Optional[str] = None,
+    categories: Optional[str] = None,
 ) -> DashboardSummary:
     repo = get_repository()
     sev, cat = _split(severities), _split(categories)
@@ -70,8 +75,8 @@ def dashboard_summary(
 @app.get("/api/v1/alerts", response_model=AlertPage)
 def alerts(
     range: str = Query("7d", pattern="^(24h|7d|30d|90d)$"),
-    severities: str | None = None,
-    categories: str | None = None,
+    severities: Optional[str] = None,
+    categories: Optional[str] = None,
     limit: int = Query(8, ge=1, le=100),
 ) -> AlertPage:
     repo = get_repository()
